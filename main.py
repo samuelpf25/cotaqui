@@ -247,27 +247,34 @@ def main():
         preco=menor[0][0]
         empresa=menor[0][1]
         data=menor[0][2]
-
-        resultado = consulta('empresas', 'cod_empresa', empresa)
+        telefone=''
+        endereco=''
         try:
-            empresa = resultado[0][1]
+            resultado = consulta('empresas', 'cod_empresa', empresa)
+            try:
+                empresa = resultado[0][1]
+                telefone = resultado[0][2]
+                endereco = resultado[0][3]
+            except:
+                print('erro')
+
+            media = precos(cod_material, 'AVG')
+
+            st.text('Menor preço: ' + str(preco) + ' (média: ' + str(media[0][0])+')')
+            st.text('Unidade: ' + str(unidade))
+            st.text('Empresa: ' + str(empresa))
+            st.text('Telefone: ' + str(telefone))
+            st.text('Endereço: ' + str(endereco))
+            st.text('Data da cotação: ' + str(data))
+
+            qtd=0.0
+            dado=st.text_input('Quantidade: ')
+            if (dado!=''):
+                qtd=dado
+            total=float(qtd)*float(preco)
+            st.text('Total: ' + str(total))
         except:
-            print('erro')
-
-        media = precos(cod_material, 'AVG')
-
-        st.text('Menor preço: ' + str(preco) + ' (média: ' + str(media[0][0])+')')
-        st.text('Unidade: ' + str(unidade))
-        st.text('Empresa: ' + str(empresa))
-        st.text('Data da cotação: ' + str(data))
-
-        qtd=0.0
-        dado=st.text_input('Quantidade: ')
-        if (dado!=''):
-            qtd=dado
-        total=float(qtd)*float(preco)
-        st.text('Total: ' + str(total))
-
+            print('erro1')
         # adicionar=st.button('Adicionar item')
         # if (adicionar):
         #     mat.append(material)
