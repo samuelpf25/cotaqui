@@ -17,24 +17,28 @@ def cadastro(base,lista):
 
     c.execute('INSERT INTO '+base+' VALUES ('+value+')',lista)
     conn.commit()
-
+    conn.close()
+    
 def contagem(tabela):
     conn, c = carregar()
     print('SELECT * FROM ' + tabela)
     cur=c.execute('SELECT * FROM ' + tabela)
     n1 = len(cur.fetchall())
+    conn.close()
     return n1
 
 def consulta(tabela,onde,dado):
     conn, c = carregar()
     c.execute('SELECT * FROM ' + tabela + ' WHERE ' + onde + ' = "' + dado + '"')
     data = c.fetchall()
+    conn.close()
     return data
 
 def consulta_todos(tabela):
     conn, c = carregar()
     c.execute('SELECT * FROM ' + tabela)
     data = c.fetchall()
+    conn.close()
     return data
 
 """def consulta_cotacao(tabela,onde,dado):
@@ -47,6 +51,7 @@ def pesquisando(tabela,onde,dado):
     conn, c = carregar()
     c.execute('SELECT * FROM ' + tabela + ' WHERE ' + onde + ' LIKE "%' + dado + '%"')
     data = c.fetchall()
+    conn.close()
     return data
 
 def atualizar(task,base,set,onde,dado):
@@ -56,6 +61,7 @@ def atualizar(task,base,set,onde,dado):
     print(sql)
     c.execute(sql, task)
     conn.commit()
+    conn.close()
 
 def precos(cod_material,var):
     conn, c = carregar()
@@ -63,5 +69,6 @@ def precos(cod_material,var):
     menor = c.execute(sql)
     menor=menor.fetchall() #a
     print(str(menor))
+    conn.close()
     return menor
 
